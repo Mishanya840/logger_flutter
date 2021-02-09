@@ -2,11 +2,13 @@ part of logger_flutter;
 
 class LogConsoleOnShake extends StatefulWidget {
   final Widget child;
+  final GlobalKey<NavigatorState> rootNavigatorKey;
   final bool dark;
   final bool debugOnly;
 
   LogConsoleOnShake({
     @required this.child,
+    this.rootNavigatorKey,
     this.dark,
     this.debugOnly = true,
   });
@@ -47,7 +49,7 @@ class _LogConsoleOnShakeState extends State<LogConsoleOnShake> {
     if (_open) return;
 
     _open = true;
-    await LogConsole.open(context, dark: widget.dark);
+    await LogConsole.open(widget.rootNavigatorKey?.currentContext ?? context, dark: widget.dark);
     _open = false;
   }
 
